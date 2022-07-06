@@ -1,0 +1,24 @@
+legend {
+    font-size: 25px;
+}
+
+.user-data, .user-data input, .result, button {
+    font-size: 18px;
+}
+
+#nome, #cognome, #giorno, #mese, #anno, #m, #f, #calcola {
+    margin-bottom: 20px;
+}
+
+#calcola {
+    margin-top: 20px;
+}
+
+#giorno, #mese, #anno {
+    width: 80px;
+}
+
+.result {
+    width: fit-content;
+    border: 1px solid black;
+}

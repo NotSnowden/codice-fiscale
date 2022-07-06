@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="it">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Calcola codice fiscale</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="titolo">
+            <h1>Calcolo codice fiscale</h1>
+        </div>
+
+        <fieldset>
+            <legend>Dati utente</legend>
+
+            <section class="user-data">
+                <input type="text" placeholder="Nome" id="nome">
+                <input type="text" placeholder="Cognome" id="cognome"><br>
+    
+                <input type="number" placeholder="Giorno" id="giorno">
+                <input type="number" placeholder="Mese" id="mese">
+                <input type="number" placeholder="Anno" id="anno"><br>
+    
+                <label for="m">M</label><input type="checkbox" id="m">
+                <label for="f">F</label><input type="checkbox" id="f"><br>
+    
+                <input type="text" placeholder="Codice comune" id="codice-comune">
+                <label for="codice-comune">Puoi trovare la lista dei codici <a href="https://www.agenziaentrate.gov.it/portale/documents/20143/448384/Tabella+codici+catastali+comuni_T4_codicicatastali_comuni_24_05_2019.pdf/d4fa70bd-f4bd-caba-24cb-5cc3611237c0">qui</a></label>
+            </section>
+        </fieldset>
+
+        <button id="calcola">Calcola</button>
+        <span class="result">Il tuo codice fiscale è: </span>
+        
+        <script src="script.js"></script>
+    </body>
+</html>
