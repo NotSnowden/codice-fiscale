@@ -19,9 +19,9 @@ btn.onclick = () => {
 
     let sesso = (vmaschio) ? 'm' : 'f'
 
-    let codice_fiscale = main(vnome.value, vcognome.value, vgiorno.value, vmese.value, vanno.value, sesso, vcodice.value)
+    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), vgiorno.value, vmese.value, vanno.value, sesso, vcodice.value.replace(/ /g,''))
     
-    result.innerHTML += " <strong>" + codice_fiscale + "</strong>"
+    result.innerHTML = "Il tuo codice fiscale è: <strong>" + codice_fiscale + "</strong>"
 }
 
 function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
