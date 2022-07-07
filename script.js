@@ -17,9 +17,9 @@ btn.onclick = () => {
         return
     }
 
-    let sesso = (vmaschio) ? 'm' : 'f'
+    let sesso = (vmaschio.checked) ? 'm' : 'f'
 
-    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), vgiorno.value, vmese.value, vanno.value, sesso, vcodice.value.replace(/ /g,''))
+    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value.replace(/ /g,''))
     
     result.innerHTML = "Il tuo codice fiscale è: <strong>" + codice_fiscale + "</strong>"
 }
@@ -40,6 +40,9 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     
     nome = plusExceptions(nome)
     cognome = plusExceptions(cognome)
+
+    if (nome.length > 3)
+      nome = setCharAt(nome, 1, '')
 
     nome = nome.substring(0, 3)
     cognome = cognome.substring(0, 3)
@@ -63,7 +66,7 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
         codice_fiscale += giorno
     }
     else
-        codice_fiscale += (giorno + 40).toString()
+        codice_fiscale += "" + (giorno + 40)
 
     codice_fiscale += codice_comune
 
@@ -192,4 +195,9 @@ vmaschio.onclick = () => {
 vfemmina.onclick = () => {
     if (vmaschio.checked)
         vmaschio.checked = false
+}
+
+function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substring(0,index) + chr + str.substring(index+1);
 }
