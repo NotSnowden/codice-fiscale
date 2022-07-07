@@ -13,7 +13,6 @@ const SIZE = 26
 btn.onclick = () => {
     if (!isInputValid()) {
         alert("Controllare di aver inserito i dati correttamente")
-        reset()
         return
     }
 
@@ -21,6 +20,11 @@ btn.onclick = () => {
 
     let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value.replace(/ /g,''))
     
+    if (codice_fiscale.length != 16) {
+        alert("Errore durante la generazione del codice fiscale. Assicurati di aver inserito i dati correttamente.")
+        return
+    }
+
     result.innerHTML = "Il tuo codice fiscale è: <strong>" + codice_fiscale + "</strong>"
 }
 
@@ -150,17 +154,6 @@ function isInputValid() {
         return false
     
     return true
-}
-
-function reset() {
-    vnome.value = ""
-    vcognome.value = ""
-    vgiorno.value = ""
-    vmese.value = ""
-    vanno.value = ""
-    vmaschio.checked = false
-    vfemmina.checked = false
-    vcodice.value = ""
 }
 
 vgiorno.onchange = () => {
