@@ -22,6 +22,11 @@ btn.onclick = () => {
     //(e poi così facendo è stato più facile tradurre il codice da C a JavaScript)
     let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value.trim())
     
+    if (codice_fiscale == -1) {
+        alert("Comune non trovato :(")
+        return
+    }
+
     if (codice_fiscale.length != 16) {
         alert("Errore durante la generazione del codice fiscale.\nAssicurati di aver inserito i dati correttamente.")
         return
@@ -91,6 +96,9 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     //cerco il comune nel file comuni.js
     codice_comune = getValues(data, codice_comune)
     codice_comune = codice_comune.toString()
+
+    if (codice_comune == "")
+        return -1
 
     codice_fiscale += codice_comune
 
