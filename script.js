@@ -8,7 +8,6 @@ const vmaschio = document.getElementById("m")
 const vfemmina = document.getElementById("f")
 const btn = document.getElementById("calcola")
 const result = document.querySelector(".result")
-const SIZE = 26
 
 btn.onclick = () => {
     if (!isInputValid()) {
@@ -21,7 +20,7 @@ btn.onclick = () => {
     //ho fatto questa cosa solo per sugar coating, venendo da C preferisco avere il core
     //del programma in una specifica funzione main, staccata dall'interfaccia grafica
     //(e poi così facendo è stato più facile tradurre il codice da C a JavaScript)
-    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value)
+    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value.trim())
     
     if (codice_fiscale.length != 16) {
         alert("Errore durante la generazione del codice fiscale.\nAssicurati di aver inserito i dati correttamente.")
@@ -40,8 +39,14 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
 
     let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     let codMesi = ['A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T']
-    let num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    let codPari = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+    let num = Array.from(
+        {length: 10},
+        (_, index) => index
+    );
+    let codPari = Array.from(
+        {length: 26},
+        (_, index) => index
+    );
     let codDispari = [1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23]
     let sommaCheck = 0, checkDigit
     
@@ -94,14 +99,14 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     //il calcolo del checkdigit segue una specifica codifica che non ho voglia di spiegare
     for(let i = 0; i < codice_fiscale.length; i++) {
         if (i % 2 == 0) {
-            for(let j = 0; j < SIZE; j++)
+            for(let j = 0; j < 26; j++)
                 sommaCheck += (codice_fiscale.charAt(i) == letters[j]) ? codDispari[j] : 0;
     
             for(let j = 0; j < 10; j++)
                 sommaCheck += (codice_fiscale.charAt(i) == num[j]) ? codDispari[j] : 0;
         }
         else {
-            for(let j = 0; j < SIZE; j++)
+            for(let j = 0; j < 26; j++)
                 sommaCheck += (codice_fiscale.charAt(i) == letters[j]) ? codPari[j] : 0;
     
             for(let j = 0; j < 10; j++)
