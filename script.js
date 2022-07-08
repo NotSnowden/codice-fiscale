@@ -18,10 +18,13 @@ btn.onclick = () => {
 
     let sesso = (vmaschio.checked) ? 'm' : 'f'
 
-    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value.replace(/ /g,''))
+    //ho fatto questa cosa solo per sugar coating, venendo da C preferisco avere il core
+    //del programma in una specifica funzione main, staccata dall'interfaccia grafica
+    //(e poi così facendo è stato più facile tradurre il codice da C a JavaScript)
+    let codice_fiscale = main(vnome.value.replace(/ /g,''), vcognome.value.replace(/ /g,''), parseInt(vgiorno.value), vmese.value, vanno.value, sesso, vcodice.value)
     
     if (codice_fiscale.length != 16) {
-        alert("Errore durante la generazione del codice fiscale. Assicurati di aver inserito i dati correttamente.")
+        alert("Errore durante la generazione del codice fiscale.\nAssicurati di aver inserito i dati correttamente.")
         return
     }
 
@@ -42,18 +45,25 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     let codDispari = [1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23]
     let sommaCheck = 0, checkDigit
     
+    //rimuovo le vocali da nome e cognome seguendo le eccezioni previste
+    //dalla codifica
     nome = plusExceptions(nome)
     cognome = plusExceptions(cognome)
 
+    //se il nome ha più di tre consonanti si prendono la prima, la terza e la quarta,
+    //a differenza del cognome che si prendono le prime tre
     if (nome.length > 3)
       nome = setCharAt(nome, 1, '')
 
     nome = nome.substring(0, 3)
     cognome = cognome.substring(0, 3)
 
+    //prendo le ultime due cifre dell'anno di nascita (1990 -> 90)
     anno = anno.toString()
     anno = anno.substring(2, 4)
 
+    //ad ogni mese è associata una specifica lettera secondo una codifica.
+    //con questo ciclo ricavo questa lettera
     let tmp = ""
 
     for(let i = 0; i < mese; i++)
@@ -63,6 +73,7 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
 
     codice_fiscale = cognome + nome + anno + mese
 
+    //se l'utente è femmina al numero del giorno va aggiunto 40
     if (sesso == 'm') {
         if (giorno < 10)
             giorno = "0" + giorno.toString()
@@ -72,10 +83,15 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     else
         codice_fiscale += "" + (giorno + 40)
 
+    //cerco il comune nel file comuni.js
+    codice_comune = getValues(data, codice_comune)
+    codice_comune = codice_comune.toString()
+
     codice_fiscale += codice_comune
 
     //il primo for cambia ad ogni iterazione il carattere da analizzare.
     //il trattamento tra posizione dispari e pari è invertito perchè il controllo inizia da 0 invece che da 1
+    //il calcolo del checkdigit segue una specifica codifica che non ho voglia di spiegare
     for(let i = 0; i < codice_fiscale.length; i++) {
         if (i % 2 == 0) {
             for(let j = 0; j < SIZE; j++)
@@ -193,4 +209,19 @@ vfemmina.onclick = () => {
 function setCharAt(str,index,chr) {
     if(index > str.length-1) return str;
     return str.substring(0,index) + chr + str.substring(index+1);
+}
+
+//(funzione rubata direttamente su stackoverflow)
+//return an array of values that match on a certain key
+function getValues(obj, key) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getValues(obj[i], key));
+        } else if (i == key) {
+            objects.push(obj[i]);
+        }
+    }
+    return objects;
 }
