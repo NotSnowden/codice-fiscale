@@ -72,14 +72,8 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     anno = anno.toString()
     anno = anno.substring(2, 4)
 
-    //ad ogni mese è associata una specifica lettera secondo una codifica.
-    //con questo ciclo ricavo questa lettera
-    let tmp = ""
-
-    for(let i = 0; i < mese; i++)
-        tmp = codMesi[i]
-
-    mese = tmp
+    //ad ogni mese è associata una specifica lettera secondo una codifica
+    mese = codMesi[mese - 1]
 
     codice_fiscale = cognome + nome + anno + mese
 
@@ -93,7 +87,7 @@ function main(nome, cognome, giorno, mese, anno, sesso, codice_comune) {
     else
         codice_fiscale += "" + (giorno + 40)
 
-    //cerco il comune nel file comuni.js
+    //cerco il comune nel file comuni.js, se non lo trovo interrompo l'esecuzione del calcolo
     codice_comune = getValues(data, codice_comune)
     codice_comune = codice_comune.toString()
 
