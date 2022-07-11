@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="it">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>Calcolo inverso codice fiscale</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="titolo">
+            <h1>Calcolo inverso del codice fiscale</h1>
+        </div>
+
+        <fieldset>
+            <legend>Dati utente</legend>
+
+            <section class="user-data">
+                <input type="text" placeholder="Codice fiscale" id="codice-fiscale">
+            </section>
+        </fieldset>
+
+        <button id="calcola">Calcola</button><br>
+        
+        <div class="results">
+            <p id="nome"><strong>Nome:</strong> </p>
+            <p id="cognome"><strong>Cognome:</strong> </p>
+            <p id="data"><strong>Data di nascita:</strong> </p>
+            <p id="comune"><strong>Comune di nascita:</strong> </p>
+        </div>
+        
+        <script src="comuni.js" ></script>
+        <script src="codiceInverso.js"></script>
+    </body>
+</html>

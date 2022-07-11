@@ -22,3 +22,11 @@ legend {
     width: fit-content;
     border: 1px solid black;
 }
+
+a {
+    font-size: 18px;
+}
+
+.results {
+    font-size: 18px;
+}
