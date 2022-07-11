@@ -3,6 +3,7 @@ const nome = document.getElementById("nome")
 const cognome = document.getElementById("cognome")
 const nascita = document.getElementById("data")
 const comune = document.getElementById("comune")
+const sesso = document.getElementById("sesso")
 const calcola = document.getElementById("calcola")
 
 calcola.onclick = () => {
@@ -18,8 +19,12 @@ calcola.onclick = () => {
 
     let day = codice_fiscale.substring(9, 11)
     
-    if (parseInt(day) > 31)
+    if (parseInt(day) > 31) {
+        sesso.innerHTML = "<strong>Sesso:</strong> femmina"
         day = parseInt(day) - 40
+    }
+    else
+      sesso.innerHTML = "<strong>Sesso:</strong> maschio"
 
     let month = codice_fiscale.substring(8, 9)
     let codMesi = ['A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T']
