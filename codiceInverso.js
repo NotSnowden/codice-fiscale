@@ -45,6 +45,9 @@ calcola.onclick = () => {
 
     let luogo = getKeyByValue(data, codice_fiscale.substring(11, 15)).toString()
 
+    luogo = luogo.toLowerCase()
+    luogo = luogo.charAt(0).toUpperCase() + luogo.slice(1);
+
     comune.innerHTML = "<strong>Comune di nascita:</strong> " + luogo
 }
 
